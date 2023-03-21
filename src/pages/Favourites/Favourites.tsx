@@ -5,14 +5,15 @@ import {
 } from "../../store/features/favourites/favouritesSlice";
 import { useAppSelector } from "../../store/hooks";
 import ImageBox from "./../../components/ImageBox/ImageBox";
+import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
 
 function Favourites() {
   const favouritesStatus = useAppSelector(selectFavouritesStatus);
   const favourites = useAppSelector(selectFavourites);
+  const imageCols = useResponsiveImageCols();
 
   return (
     <div>
-      <h1>Favourites</h1>
       {favouritesStatus === "loading" && (
         <div className="text-align-center">
           <CircularProgress />
@@ -22,7 +23,7 @@ function Favourites() {
         (!favourites?.length ? (
           <p className="text-align-center">No data :(</p>
         ) : (
-          <ImageList cols={5}>
+          <ImageList cols={imageCols}>
             {favourites.map((fav) => (
               <ImageBox key={fav.id} image={fav.image} />
             ))}

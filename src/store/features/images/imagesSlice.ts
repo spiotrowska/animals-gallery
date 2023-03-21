@@ -9,7 +9,7 @@ const initialState: ImagesState = {
   data: [],
   spieces: "all",
   page: 0,
-  rowsPerPage: 10,
+  rowsPerPage: 20,
   totalCount: 0,
   showPagination: false,
 };

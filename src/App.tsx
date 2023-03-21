@@ -15,11 +15,9 @@ import { useAppDispatch, useAppSelector } from "./store/hooks";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#35193A",
+      main: "#073868",
+      contrastText: "#B4AFAF",
     },
-    // secondary: {
-    //   main: '#11cb5f',
-    // },
   },
 });
 

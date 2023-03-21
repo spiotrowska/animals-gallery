@@ -11,8 +11,7 @@ import { selectFavourites } from "./../../store/features/favourites/favouritesSl
 import { useAppDispatch } from "./../../store/hooks";
 import { deleteFavourite } from "./../../store/features/favourites/deleteFavourite";
 import { DeleteFavouritesPayload } from "../../store/features/favourites/types";
-import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import ImageFullScreen from "../ImageFullScreen/ImageFullScreen";
+import ImageFullScreenButton from "../ImageFullScreenButton/ImageFullScreenButton";
 
 interface Props {
   image: Image;
@@ -24,15 +23,6 @@ export default function ImageBox(props: Props) {
   const [isFavourite, setIsFavourite] = useState(
     favourites.some((fav) => fav.image_id === props.image.id)
   );
-  const [fullScreenOpen, setFullScreenOpen] = useState(false);
-
-  const handleOpenFullScreen = () => {
-    setFullScreenOpen(true);
-  };
-
-  const handleCloseFullScreen = () => {
-    setFullScreenOpen(false);
-  };
 
   function handleSetFavourite() {
     if (isFavourite) {
@@ -55,48 +45,42 @@ export default function ImageBox(props: Props) {
 
   return (
     <>
-      <ImageListItem key={props.image.id}>
+      <ImageListItem key={props.image.id} style={{ color: "red" }}>
         <IconButton
-          color="error"
+          color="primary"
           aria-label="add to favourites"
           style={{ position: "absolute" }}
           onClick={handleSetFavourite}
         >
           {isFavourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
-        <IconButton
-          aria-label="full screen"
-          style={{ position: "absolute", right: 0 }}
-          onClick={handleOpenFullScreen}
-        >
-          <FullscreenIcon />
-        </IconButton>
         <img
-          src={`${props.image.url}?w=164&h=164&fit=crop&auto=format`}
-          srcSet={`${props.image.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+          src={`${props.image.url}`}
+          srcSet={`${props.image.url}`}
           alt={props.image.id}
           loading="lazy"
         />
-        {props.image.breeds && (
-          <ImageListItemBar
-            title={props.image.breeds[0]?.name}
-            subtitle={props.image.breeds[0]?.description}
-            actionIcon={
-              <ImageBoxInfoButton
-                name={props.image.breeds[0]?.name}
-                description={props.image.breeds[0]?.description}
-                temperament={props.image.breeds[0]?.temperament}
-                origin={props.image.breeds[0]?.origin}
-              />
-            }
-          />
-        )}
+
+        <ImageListItemBar
+          title={props.image.breeds && props.image.breeds[0]?.name}
+          style={{
+            background: "linear-gradient(0deg,rgba(0,0,0,0.9) 0,rgba(0,0,0,0))",
+          }}
+          actionIcon={
+            <>
+              {props.image.breeds && (
+                <ImageBoxInfoButton
+                  name={props.image.breeds[0]?.name}
+                  description={props.image.breeds[0]?.description}
+                  temperament={props.image.breeds[0]?.temperament}
+                  origin={props.image.breeds[0]?.origin}
+                />
+              )}
+              <ImageFullScreenButton imageUrl={props.image.url} />
+            </>
+          }
+        />
       </ImageListItem>
-      <ImageFullScreen
-        imageUrl={props.image.url}
-        open={fullScreenOpen}
-        handleClose={handleCloseFullScreen}
-      />
     </>
   );
 }

@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dog-head {
+  z-index: 100;
+  animation: head-move 1s ease-in-out infinite;
+}
+
+/*ANIMATIONS
+---------------------------------------------------------*/
+
+@keyframes head-move {
+  50% { 
+    -webkit-transform: rotate(-5deg); 
+  }
+}

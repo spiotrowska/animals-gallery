@@ -22,34 +22,34 @@ function GalleryFilters() {
   }
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={8}>
+    <Grid container spacing={2} alignItems="center">
+      <Grid item xs={12} md={6}>
         <Button
-          variant="contained"
+          variant="outlined"
           onClick={() => dispatch(setSpieces("cat"))}
           disabled={isSelectedSpieces("cat")}
         >
           Cats
         </Button>
         <Button
-          variant="contained"
+          variant="outlined"
           onClick={() => dispatch(setSpieces("dog"))}
           disabled={isSelectedSpieces("dog")}
         >
           Dogs
         </Button>
         <Button
-          variant="contained"
+          variant="outlined"
           onClick={() => dispatch(setSpieces("all"))}
           disabled={isSelectedSpieces("all")}
         >
           All
         </Button>
-      </Grid>
-      <Grid item xs={4}>
-        <Button onClick={switchPagination}>
-          {showPagination ? "Infinity scroll" : "Pagination"}
+        <Button variant="outlined" onClick={switchPagination}>
+          {showPagination ? "Set infinity scroll" : "Set pagination"}
         </Button>
+      </Grid>
+      <Grid item xs={12} md={6} justifyContent="flex-end" alignItems="center">
         {showPagination && <GalleryPagination />}
       </Grid>
     </Grid>

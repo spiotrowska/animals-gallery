@@ -15,6 +15,7 @@ import ImageBox from "./../../components/ImageBox/ImageBox";
 import usePrevious from "./../../hooks/usePrevious";
 import { fetchImages } from "./../../store/features/images/fetchImages";
 import { useAppDispatch } from "./../../store/hooks";
+import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
 
 function GalleryInfinityScrollImages() {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ function GalleryInfinityScrollImages() {
   const prevSpieces = usePrevious(spieces);
   const [imagesArrayMerged, setImagesArrayMerged] = useState<Image[]>(images);
   const [loadMoreData, setLoadMoreData] = useState(true);
+  const imageCols = useResponsiveImageCols();
 
   useEffect(() => {
     setImagesArrayMerged((i) => [...i, ...images]);
@@ -58,7 +60,7 @@ function GalleryInfinityScrollImages() {
       loader={<CircularProgress />}
       style={{ overflowY: "hidden" }}
     >
-      <ImageList cols={5}>
+      <ImageList cols={imageCols}>
         {imagesArrayMerged.map((image, index) => (
           <ImageBox key={index} image={image} />
         ))}

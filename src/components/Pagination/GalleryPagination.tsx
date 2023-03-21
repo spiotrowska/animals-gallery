@@ -36,7 +36,7 @@ export default function GalleryPagination() {
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}
       onRowsPerPageChange={handleChangeRowsPerPage}
-      rowsPerPageOptions={[10, 20, 50]}
+      rowsPerPageOptions={[10, 20, 30, 40, 50]}
     />
   );
 }
