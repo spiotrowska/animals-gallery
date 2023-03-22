@@ -20,10 +20,6 @@ export type FetchImagesPayload = {
   rowsPerPage: number;
 };
 
-export type FetchImagesError = {
-  message: string;
-};
-
 export type ImagesState = {
   status: "loading" | "idle" | "fulfilled" | "rejected";
   error: string | null;
@@ -31,6 +27,3 @@ export type ImagesState = {
   totalCount: number;
   showPagination: boolean;
 } & FetchImagesPayload;
-// spieces: "dog" | "cat" | "all";
-// page: number;
-// rowsPerPage: number;

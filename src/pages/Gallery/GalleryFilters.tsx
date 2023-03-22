@@ -28,6 +28,7 @@ function GalleryFilters() {
           variant="outlined"
           onClick={() => dispatch(setSpieces("cat"))}
           disabled={isSelectedSpieces("cat")}
+          style={{ marginRight: 10 }}
         >
           Cats
         </Button>
@@ -35,6 +36,7 @@ function GalleryFilters() {
           variant="outlined"
           onClick={() => dispatch(setSpieces("dog"))}
           disabled={isSelectedSpieces("dog")}
+          style={{ marginRight: 10 }}
         >
           Dogs
         </Button>
@@ -42,11 +44,12 @@ function GalleryFilters() {
           variant="outlined"
           onClick={() => dispatch(setSpieces("all"))}
           disabled={isSelectedSpieces("all")}
+          style={{ marginRight: 10 }}
         >
           All
         </Button>
         <Button variant="outlined" onClick={switchPagination}>
-          {showPagination ? "Set infinity scroll" : "Set pagination"}
+          {showPagination ? "Infinity scroll" : "Pagination"}
         </Button>
       </Grid>
       <Grid item xs={12} md={6} justifyContent="flex-end" alignItems="center">

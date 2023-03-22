@@ -8,7 +8,10 @@ import Home from "./pages/Home/Home";
 import Gallery from "./pages/Gallery/Gallery";
 import Favourites from "./pages/Favourites/Favourites";
 import { useEffect } from "react";
-import { selectFavouritesStatus } from "./store/features/favourites/favouritesSlice";
+import {
+  selectFavouritesSpieces,
+  selectFavouritesStatus,
+} from "./store/features/favourites/favouritesSlice";
 import { fetchFavourites } from "./store/features/favourites/fetchFavourites";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
@@ -19,15 +22,21 @@ const theme = createTheme({
       contrastText: "#B4AFAF",
     },
   },
+  typography: {
+    fontFamily: `cursive, "Roboto", "Helvetica", "Arial", sans-serif`,
+  },
 });
 
 function App() {
   const dispatch = useAppDispatch();
   const favouritesStatus = useAppSelector(selectFavouritesStatus);
+  const favouriteSpieces = useAppSelector(selectFavouritesSpieces);
 
   useEffect(() => {
-    if (favouritesStatus === "idle") dispatch(fetchFavourites());
-  }, [dispatch, favouritesStatus]);
+    if (favouritesStatus === "idle") {
+      dispatch(fetchFavourites(favouriteSpieces));
+    }
+  }, [dispatch, favouritesStatus, favouriteSpieces]);
 
   return (
     <ThemeProvider theme={theme}>

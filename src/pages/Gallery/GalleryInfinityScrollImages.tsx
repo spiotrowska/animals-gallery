@@ -13,9 +13,10 @@ import { FetchImagesPayload, Image } from "../../store/features/images/types";
 import { useAppSelector } from "../../store/hooks";
 import ImageBox from "./../../components/ImageBox/ImageBox";
 import usePrevious from "./../../hooks/usePrevious";
+import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
 import { fetchImages } from "./../../store/features/images/fetchImages";
 import { useAppDispatch } from "./../../store/hooks";
-import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
+import { selectImagesStatus } from "./../../store/features/images/imagesSlice";
 
 function GalleryInfinityScrollImages() {
   const dispatch = useAppDispatch();
@@ -25,9 +26,10 @@ function GalleryInfinityScrollImages() {
   const totalCount = useAppSelector(selectImagesTotalCount);
   const spieces = useAppSelector(selectImagesSpieces);
   const prevSpieces = usePrevious(spieces);
-  const [imagesArrayMerged, setImagesArrayMerged] = useState<Image[]>(images);
-  const [loadMoreData, setLoadMoreData] = useState(true);
+  const [imagesArrayMerged, setImagesArrayMerged] = useState<Image[]>([]);
   const imageCols = useResponsiveImageCols();
+  const imagesStatus = useAppSelector(selectImagesStatus);
+  const [loadMoreData, setLoadMoreData] = useState(true);
 
   useEffect(() => {
     setImagesArrayMerged((i) => [...i, ...images]);
@@ -38,6 +40,10 @@ function GalleryInfinityScrollImages() {
       setImagesArrayMerged([]);
     }
   }, [spieces, prevSpieces]);
+
+  useEffect(() => {
+    if (imagesStatus === "rejected") setLoadMoreData(false);
+  }, [imagesStatus]);
 
   function fetchMoreImages() {
     if (imagesArrayMerged.length >= totalCount) {
@@ -57,7 +63,11 @@ function GalleryInfinityScrollImages() {
       dataLength={imagesArrayMerged.length * rowsPerPage}
       next={fetchMoreImages}
       hasMore={loadMoreData}
-      loader={<CircularProgress />}
+      loader={
+        <div style={{ textAlign: "center" }}>
+          <CircularProgress />
+        </div>
+      }
       style={{ overflowY: "hidden" }}
     >
       <ImageList cols={imageCols}>

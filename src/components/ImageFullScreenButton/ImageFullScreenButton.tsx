@@ -35,12 +35,20 @@ function ImageFullScreen(props: Props) {
         open={open}
         onClick={handleClose}
       >
+        <div></div>
         <img
           src={props.imageUrl}
           srcSet={props.imageUrl}
           alt="full screen"
           loading="lazy"
-          style={{ width: "auto", height: "90%" }}
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            margin: "auto",
+            verticalAlign: "middle",
+            width: "auto",
+            height: "auto",
+          }}
         />
       </Backdrop>
     </>

@@ -45,8 +45,7 @@ export const imagesSlice = createSlice({
       state.status = "fulfilled";
     });
     builder.addCase(fetchImages.rejected, (state, { payload }) => {
-      //   if (payload) state.error = payload.message;
-      console.log("payload", payload);
+      if (payload) state.error = payload;
       state.status = "rejected";
     });
   },
@@ -56,6 +55,7 @@ export const { setSpieces, setPage, setRowsPerPage, setShowPagination } =
   imagesSlice.actions;
 
 export const selectImagesStatus = (state: RootState) => state.images.status;
+export const selectImagesError = (state: RootState) => state.images.error;
 export const selectImages = (state: RootState) => state.images.data;
 export const selectImagesSpieces = (state: RootState) => state.images.spieces;
 export const selectImagesPage = (state: RootState) => state.images.page;

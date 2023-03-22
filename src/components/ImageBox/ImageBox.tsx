@@ -2,16 +2,20 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ImageListItem, ImageListItemBar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { DeleteFavouritesPayload } from "../../store/features/favourites/types";
 import { Image } from "../../store/features/images/types";
 import { useAppSelector } from "../../store/hooks";
 import ImageBoxInfoButton from "../ImageBoxInfoButton/ImageBoxInfoButton";
-import { addFavourite } from "./../../store/features/favourites/addFavourite";
-import { selectFavourites } from "./../../store/features/favourites/favouritesSlice";
-import { useAppDispatch } from "./../../store/hooks";
-import { deleteFavourite } from "./../../store/features/favourites/deleteFavourite";
-import { DeleteFavouritesPayload } from "../../store/features/favourites/types";
 import ImageFullScreenButton from "../ImageFullScreenButton/ImageFullScreenButton";
+import { addFavourite } from "./../../store/features/favourites/addFavourite";
+import { deleteFavourite } from "./../../store/features/favourites/deleteFavourite";
+import {
+  selectAddNewFavouriteStatus,
+  selectDeleteFavouriteStatus,
+  selectFavourites,
+} from "./../../store/features/favourites/favouritesSlice";
+import { useAppDispatch } from "./../../store/hooks";
 
 interface Props {
   image: Image;
@@ -23,6 +27,21 @@ export default function ImageBox(props: Props) {
   const [isFavourite, setIsFavourite] = useState(
     favourites.some((fav) => fav.image_id === props.image.id)
   );
+  const addNewFavouritesStatus = useAppSelector(selectAddNewFavouriteStatus);
+  const deleteFavouritesStatus = useAppSelector(selectDeleteFavouriteStatus);
+
+  useEffect(() => {
+    if (
+      addNewFavouritesStatus === "rejected" ||
+      deleteFavouritesStatus === "rejected"
+    )
+      setIsFavourite(favourites.some((fav) => fav.image_id === props.image.id));
+  }, [
+    addNewFavouritesStatus,
+    deleteFavouritesStatus,
+    favourites,
+    props.image.id,
+  ]);
 
   function handleSetFavourite() {
     if (isFavourite) {
@@ -55,12 +74,11 @@ export default function ImageBox(props: Props) {
           {isFavourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
         <img
-          src={`${props.image.url}`}
-          srcSet={`${props.image.url}`}
+          src={props.image.url}
+          srcSet={props.image.url}
           alt={props.image.id}
           loading="lazy"
         />
-
         <ImageListItemBar
           title={props.image.breeds && props.image.breeds[0]?.name}
           style={{

@@ -15,8 +15,8 @@ function getRowsPerPage(
 
 export const fetchImages = createAsyncThunk<
   { data: Image[]; totalCount: number },
-  FetchImagesPayload
-  // { rejectValue: FetchImagesError }
+  FetchImagesPayload,
+  { rejectValue: string }
 >("images/fetch", async (payload, thunkApi) => {
   const url = "images/search";
   const params: AxiosRequestConfig = {
@@ -28,44 +28,44 @@ export const fetchImages = createAsyncThunk<
     },
   };
 
-  switch (payload.spieces) {
-    case "dog":
-      const dogsResponse = await dogsAxiosInstance.get(url, params);
-      const dogsTocalCount: number = dogsResponse.headers["pagination-count"];
-      return { data: dogsResponse.data, totalCount: dogsTocalCount };
-    case "cat":
-      const catsResponse = await catsAxiosInstance.get(url, params);
-      const catsTocalCount: number = catsResponse.headers["pagination-count"];
-      return { data: catsResponse.data, totalCount: catsTocalCount };
-    case "all":
-    default:
-      const [catsResp, dogsResp] = await Promise.all([
-        catsAxiosInstance.get(url, params),
-        dogsAxiosInstance.get(url, params),
-      ]);
-      const catsImages: Image[] = catsResp?.data.map((catImg: Image) => ({
-        ...catImg,
-        spieces: "cat",
-      }));
-      const dogsImages: Image[] = dogsResp?.data.map((dogImg: Image) => ({
-        ...dogImg,
-        spieces: "dog",
-      }));
+  try {
+    switch (payload.spieces) {
+      case "dog":
+        const dogsResponse = await dogsAxiosInstance.get(url, params);
+        const dogsTocalCount: number = dogsResponse.headers["pagination-count"];
+        return { data: dogsResponse.data, totalCount: dogsTocalCount };
+      case "cat":
+        const catsResponse = await catsAxiosInstance.get(url, params);
+        const catsTocalCount: number = catsResponse.headers["pagination-count"];
+        return { data: catsResponse.data, totalCount: catsTocalCount };
+      case "all":
+      default:
+        const [catsResp, dogsResp] = await Promise.all([
+          catsAxiosInstance.get(url, params),
+          dogsAxiosInstance.get(url, params),
+        ]);
 
-      const data: Image[] = catsImages
-        .map((catImg: Image, index: number) => [catImg, dogsImages[index]])
-        .flat();
-      const totalCount: number =
-        Number(catsResp.headers["pagination-count"]) +
-        Number(dogsResp.headers["pagination-count"]);
+        const catsImages: Image[] = catsResp?.data.map((catImg: Image) => ({
+          ...catImg,
+          spieces: "cat",
+        }));
+        const dogsImages: Image[] = dogsResp?.data.map((dogImg: Image) => ({
+          ...dogImg,
+          spieces: "dog",
+        }));
 
-      return { data: data, totalCount: totalCount };
+        const data: Image[] = catsImages
+          .map((catImg: Image, index: number) => [catImg, dogsImages[index]])
+          .flat();
+
+        const totalCount: number =
+          Number(catsResp.headers["pagination-count"]) +
+          Number(dogsResp.headers["pagination-count"]);
+
+        return { data: data, totalCount: totalCount };
+    }
+  } catch (err: any) {
+    const errorMessage = err.response.data?.message || err.response.data;
+    return thunkApi.rejectWithValue(errorMessage);
   }
-  // // Check if status is not okay:
-  // if (response.status !== 200) {
-  //   // Return the error message:
-  //   return thunkApi.rejectWithValue({
-  //     message: "Failed to fetch todos.",
-  //   });
-  // }
 });

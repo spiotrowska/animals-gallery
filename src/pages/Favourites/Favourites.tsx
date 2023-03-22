@@ -1,11 +1,13 @@
-import { CircularProgress, ImageList } from "@mui/material";
+import { CircularProgress, ImageList, Typography } from "@mui/material";
 import {
   selectFavourites,
   selectFavouritesStatus,
 } from "../../store/features/favourites/favouritesSlice";
 import { useAppSelector } from "../../store/hooks";
 import ImageBox from "./../../components/ImageBox/ImageBox";
+import NoDataBox from "./../../components/NoDataBox/NoDataBox";
 import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
+import FavouritesFilters from "./FavouritesFilters";
 
 function Favourites() {
   const favouritesStatus = useAppSelector(selectFavouritesStatus);
@@ -14,11 +16,14 @@ function Favourites() {
 
   return (
     <div>
+      <Typography variant="h4">Favourites animals</Typography>
+      <FavouritesFilters />
       {favouritesStatus === "loading" && (
-        <div className="text-align-center">
+        <div style={{ textAlign: "center" }}>
           <CircularProgress />
         </div>
       )}
+      {favouritesStatus === "rejected" && <NoDataBox />}
       {favouritesStatus === "fulfilled" &&
         (!favourites?.length ? (
           <p className="text-align-center">No data :(</p>

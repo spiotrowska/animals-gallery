@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "./../../store/hooks";
 import GalleryFilters from "./GalleryFilters";
 import GalleryInfinityScrollImages from "./GalleryInfinityScrollImages";
 import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
+import NoDataBox from "./../../components/NoDataBox/NoDataBox";
 
 function Gallery() {
   const dispatch = useAppDispatch();
@@ -38,8 +39,13 @@ function Gallery() {
   return (
     <div>
       <GalleryFilters />
-      {imagesStatus === "loading" && <CircularProgress />}
-      {imagesStatus === "fulfilled" && !images?.length && <p>No data :(</p>}
+      {imagesStatus === "rejected" && <NoDataBox />}
+      {imagesStatus === "loading" && showPagination && (
+        <div style={{ textAlign: "center" }}>
+          <CircularProgress />
+        </div>
+      )}
+      {imagesStatus === "fulfilled" && !images?.length && <NoDataBox />}
       {imagesStatus === "fulfilled" && showPagination && (
         <ImageList cols={imageCols}>
           {images.map((image) => (
