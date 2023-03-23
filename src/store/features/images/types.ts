@@ -1,3 +1,5 @@
+import { Spieces, SpiecesAll, Status } from "../../../types/types";
+
 type Breed = {
   name: string;
   description: string;
@@ -11,17 +13,17 @@ export type Image = {
   width?: number;
   height?: number;
   breeds?: Breed[];
-  spieces: "dog" | "cat";
+  spieces: Spieces;
 };
 
 export type FetchImagesPayload = {
-  spieces: "dog" | "cat" | "all";
+  spieces: SpiecesAll;
   page: number;
   rowsPerPage: number;
 };
 
 export type ImagesState = {
-  status: "loading" | "idle" | "fulfilled" | "rejected";
+  status: Status;
   error: string | null;
   data: Image[];
   totalCount: number;

@@ -6,6 +6,7 @@ import {
   setShowPagination,
   setSpieces,
 } from "../../store/features/images/imagesSlice";
+import { SpiecesAll } from "../../types/types";
 import StyledFilterButton from "./../../components/UI/StyledFilterButton/StyledFilterButton";
 import { selectImagesSpieces } from "./../../store/features/images/imagesSlice";
 import { useAppDispatch, useAppSelector } from "./../../store/hooks";
@@ -17,7 +18,7 @@ function GalleryFilters() {
   const spieces = useAppSelector(selectImagesSpieces);
   const showPagination = useAppSelector(selectShowPagination);
 
-  function isSelectedSpieces(selectedSpieces: "dog" | "cat" | "all"): boolean {
+  function isSelectedSpieces(selectedSpieces: SpiecesAll): boolean {
     return selectedSpieces === spieces;
   }
 

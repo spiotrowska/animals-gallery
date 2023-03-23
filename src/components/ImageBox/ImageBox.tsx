@@ -93,6 +93,7 @@ export default function ImageBox(props: Props) {
               <ImageFullScreenButton imageUrl={props.image.url} />
             </>
           }
+          className={!props.image.breeds ? "no-title" : ""}
         />
       </ImageListItem>
     </>

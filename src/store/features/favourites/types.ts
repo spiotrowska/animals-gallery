@@ -1,22 +1,23 @@
+import { Spieces, SpiecesAll, Status } from "../../../types/types";
 import { Image } from "../images/types";
 
 export type Favourite = {
   id: string;
   image_id: string;
   image: Image;
-  spieces: "dog" | "cat";
+  spieces: Spieces;
 };
 
 export type FavouritesState = {
-  status: "loading" | "idle" | "fulfilled" | "rejected";
-  addNewStatus: "loading" | "idle" | "fulfilled" | "rejected";
-  deleteStatus: "loading" | "idle" | "fulfilled" | "rejected";
+  status: Status;
+  addNewStatus: Status;
+  deleteStatus: Status;
   error: string | null;
   data: Favourite[];
-  spieces: "dog" | "cat" | "all";
+  spieces: SpiecesAll;
 };
 
 export type DeleteFavouritesPayload = {
   id: string;
-  spieces: "dog" | "cat";
+  spieces: Spieces;
 };

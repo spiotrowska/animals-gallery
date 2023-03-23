@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { SpiecesAll } from "../../../types/types";
 import { dogsAxiosInstance } from "../../../utils/axios-client";
 import { catsAxiosInstance } from "./../../../utils/axios-client";
 import { Favourite } from "./types";
 
 export const fetchFavourites = createAsyncThunk<
   Favourite[],
-  "dog" | "cat" | "all",
+  SpiecesAll,
   { rejectValue: string }
 >("favourites/fetch", async (spieces, thunkApi) => {
   const url = "favourites";

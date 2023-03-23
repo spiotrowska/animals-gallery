@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { ImagesState } from "./types";
 import { fetchImages } from "./fetchImages";
+import { SpiecesAll } from "../../../types/types";
 
 const initialState: ImagesState = {
   status: "idle",
@@ -18,7 +19,7 @@ export const imagesSlice = createSlice({
   name: "images",
   initialState,
   reducers: {
-    setSpieces: (state, action: PayloadAction<"dog" | "cat" | "all">) => {
+    setSpieces: (state, action: PayloadAction<SpiecesAll>) => {
       state.status = "idle";
       state.spieces = action.payload;
     },

@@ -4,6 +4,7 @@ import { fetchFavourites } from "./fetchFavourites";
 import { FavouritesState } from "./types";
 import { addFavourite } from "./addFavourite";
 import { deleteFavourite } from "./deleteFavourite";
+import { SpiecesAll } from "../../../types/types";
 
 const initialState: FavouritesState = {
   status: "idle",
@@ -18,10 +19,7 @@ export const favouritesSlice = createSlice({
   name: "favourites",
   initialState,
   reducers: {
-    setFavouritesSpieces: (
-      state,
-      action: PayloadAction<"dog" | "cat" | "all">
-    ) => {
+    setFavouritesSpieces: (state, action: PayloadAction<SpiecesAll>) => {
       state.status = "idle";
       state.spieces = action.payload;
     },

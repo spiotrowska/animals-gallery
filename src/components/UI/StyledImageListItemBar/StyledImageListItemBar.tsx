@@ -7,6 +7,12 @@ const StyledImageListItemBar = styled(ImageListItemBar)`
   & .MuiImageListItemBar-titleWrap {
     max-width: calc(100% - 100px);
   }
+
+  &.no-title {
+    & .MuiImageListItemBar-titleWrap {
+      max-width: 100%;
+    }
+  }
 `;
 
 export default StyledImageListItemBar;

@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import StyledFilterButton from "../../components/UI/StyledFilterButton/StyledFilterButton";
+import { SpiecesAll } from "../../types/types";
 import {
   selectFavouritesSpieces,
   setFavouritesSpieces,
@@ -10,7 +11,7 @@ function FavouritesFilters() {
   const dispatch = useAppDispatch();
   const spieces = useAppSelector(selectFavouritesSpieces);
 
-  function isSelectedSpieces(selectedSpieces: "dog" | "cat" | "all"): boolean {
+  function isSelectedSpieces(selectedSpieces: SpiecesAll): boolean {
     return selectedSpieces === spieces;
   }
 

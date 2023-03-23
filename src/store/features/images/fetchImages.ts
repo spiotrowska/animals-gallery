@@ -1,15 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosRequestConfig } from "axios";
+import { SpiecesAll } from "../../../types/types";
 import {
   catsAxiosInstance,
   dogsAxiosInstance,
 } from "../../../utils/axios-client";
 import { FetchImagesPayload, Image } from "./types";
 
-function getRowsPerPage(
-  spieces: "dog" | "cat" | "all",
-  rowsPerPage: number
-): number {
+function getRowsPerPage(spieces: SpiecesAll, rowsPerPage: number): number {
   return spieces === "all" ? rowsPerPage / 2 : rowsPerPage;
 }
 
