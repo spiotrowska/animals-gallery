@@ -1,5 +1,4 @@
 import { ImageList } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
@@ -15,8 +14,8 @@ import ImageBox from "./../../components/ImageBox/ImageBox";
 import usePrevious from "./../../hooks/usePrevious";
 import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
 import { fetchImages } from "./../../store/features/images/fetchImages";
-import { useAppDispatch } from "./../../store/hooks";
 import { selectImagesStatus } from "./../../store/features/images/imagesSlice";
+import { useAppDispatch } from "./../../store/hooks";
 
 function GalleryInfinityScrollImages() {
   const dispatch = useAppDispatch();
@@ -63,12 +62,7 @@ function GalleryInfinityScrollImages() {
       dataLength={imagesArrayMerged.length * rowsPerPage}
       next={fetchMoreImages}
       hasMore={loadMoreData}
-      loader={
-        <div style={{ textAlign: "center" }}>
-          <CircularProgress />
-        </div>
-      }
-      style={{ overflowY: "hidden" }}
+      loader={<></>}
     >
       <ImageList cols={imageCols}>
         {imagesArrayMerged.map((image, index) => (

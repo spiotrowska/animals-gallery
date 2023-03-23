@@ -1,11 +1,11 @@
-import { CircularProgress, ImageList, Typography } from "@mui/material";
+import { CircularProgress, Grid, ImageList, Typography } from "@mui/material";
+import StyledInfoBox from "../../components/UI/StyledInfoBox/StyledInfoBox";
 import {
   selectFavourites,
   selectFavouritesStatus,
 } from "../../store/features/favourites/favouritesSlice";
 import { useAppSelector } from "../../store/hooks";
 import ImageBox from "./../../components/ImageBox/ImageBox";
-import NoDataBox from "./../../components/NoDataBox/NoDataBox";
 import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
 import FavouritesFilters from "./FavouritesFilters";
 
@@ -15,26 +15,36 @@ function Favourites() {
   const imageCols = useResponsiveImageCols();
 
   return (
-    <div>
-      <Typography variant="h4">Favourites animals</Typography>
-      <FavouritesFilters />
+    <Grid textAlign="center">
+      <Grid item xs={12}>
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          Favourite animals
+        </Typography>
+      </Grid>
       {favouritesStatus === "loading" && (
-        <div style={{ textAlign: "center" }}>
+        <Grid textAlign="center">
           <CircularProgress />
-        </div>
+        </Grid>
       )}
-      {favouritesStatus === "rejected" && <NoDataBox />}
+      {favouritesStatus === "rejected" && (
+        <StyledInfoBox>
+          Something went wrong :( You need to refresh the page.
+        </StyledInfoBox>
+      )}
       {favouritesStatus === "fulfilled" &&
         (!favourites?.length ? (
-          <p className="text-align-center">No data :(</p>
+          <StyledInfoBox>No data :(</StyledInfoBox>
         ) : (
-          <ImageList cols={imageCols}>
-            {favourites.map((fav) => (
-              <ImageBox key={fav.id} image={fav.image} />
-            ))}
-          </ImageList>
+          <>
+            <FavouritesFilters />
+            <ImageList cols={imageCols}>
+              {favourites.map((fav) => (
+                <ImageBox key={fav.id} image={fav.image} />
+              ))}
+            </ImageList>
+          </>
         ))}
-    </div>
+    </Grid>
   );
 }
 

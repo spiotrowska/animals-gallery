@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Alkatra';
+    src: url('./assets/Alkatra-Bold.ttf') format('truetype'),
+         url('./assets/Alkatra-Medium.ttf') format('truetype'),
+         url('./assets/Alkatra-Regular.ttf') format('truetype'),
+         url('./assets/Alkatra-SemiBold.ttf') format('truetype');
+}  
+
+body {
+  margin: 0;
+  font-family: 'Alkatra', 'cursive', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

@@ -1,4 +1,3 @@
-import "./App.css";
 import Layout from "./hoc/Layout/Layout";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Suspense } from "react";
@@ -14,6 +13,7 @@ import {
 } from "./store/features/favourites/favouritesSlice";
 import { fetchFavourites } from "./store/features/favourites/fetchFavourites";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { ThemeProvider as SCThemeProvider } from "styled-components";
 
 const theme = createTheme({
   palette: {
@@ -23,8 +23,9 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: `cursive, "Roboto", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `"Alkatra", cursive, "Roboto", "Helvetica", "Arial", sans-serif`,
   },
+  spacing: 4,
 });
 
 function App() {
@@ -40,16 +41,18 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Layout>
-        <Suspense fallback={<h3>Waiting</h3>}>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/favourites" element={<Favourites />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </Suspense>
-      </Layout>
+      <SCThemeProvider theme={theme}>
+        <Layout>
+          <Suspense fallback={<h3>Waiting</h3>}>
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/favourites" element={<Favourites />} />
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </Suspense>
+        </Layout>
+      </SCThemeProvider>
     </ThemeProvider>
   );
 }

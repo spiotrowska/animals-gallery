@@ -1,19 +1,16 @@
-import { Grid, Typography, IconButton } from "@mui/material";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { Grid, IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
+import StyledFooterGridBox from "../UI/StyledFooterGridBox/StyledFooterGridBox";
 
 function Footer() {
-  const theme = useTheme();
-
   return (
-    <Grid
+    <StyledFooterGridBox
       container
       direction="row"
       justifyContent="center"
       alignItems="center"
-      style={{ height: 64, color: theme.palette.primary.contrastText }}
     >
       <Grid item xs={12} md={8} textAlign="center">
         <Typography variant="caption">
@@ -37,7 +34,7 @@ function Footer() {
           </IconButton>
         </Typography>
       </Grid>
-    </Grid>
+    </StyledFooterGridBox>
   );
 }
 

@@ -1,14 +1,18 @@
-import { Button, Grid } from "@mui/material";
-import GalleryPagination from "../../components/Pagination/GalleryPagination";
+import { Grid } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   selectShowPagination,
   setShowPagination,
   setSpieces,
 } from "../../store/features/images/imagesSlice";
+import StyledFilterButton from "./../../components/UI/StyledFilterButton/StyledFilterButton";
 import { selectImagesSpieces } from "./../../store/features/images/imagesSlice";
 import { useAppDispatch, useAppSelector } from "./../../store/hooks";
 
 function GalleryFilters() {
+  const theme = useTheme();
+  const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useAppDispatch();
   const spieces = useAppSelector(selectImagesSpieces);
   const showPagination = useAppSelector(selectShowPagination);
@@ -22,38 +26,39 @@ function GalleryFilters() {
   }
 
   return (
-    <Grid container spacing={2} alignItems="center">
-      <Grid item xs={12} md={6}>
-        <Button
-          variant="outlined"
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={6}>
+        <StyledFilterButton
           onClick={() => dispatch(setSpieces("cat"))}
           disabled={isSelectedSpieces("cat")}
-          style={{ marginRight: 10 }}
         >
           Cats
-        </Button>
-        <Button
-          variant="outlined"
+        </StyledFilterButton>
+        <StyledFilterButton
           onClick={() => dispatch(setSpieces("dog"))}
           disabled={isSelectedSpieces("dog")}
-          style={{ marginRight: 10 }}
         >
           Dogs
-        </Button>
-        <Button
-          variant="outlined"
+        </StyledFilterButton>
+        <StyledFilterButton
           onClick={() => dispatch(setSpieces("all"))}
           disabled={isSelectedSpieces("all")}
-          style={{ marginRight: 10 }}
         >
           All
-        </Button>
-        <Button variant="outlined" onClick={switchPagination}>
-          {showPagination ? "Infinity scroll" : "Pagination"}
-        </Button>
+        </StyledFilterButton>
       </Grid>
-      <Grid item xs={12} md={6} justifyContent="flex-end" alignItems="center">
-        {showPagination && <GalleryPagination />}
+      <Grid
+        item
+        container
+        xs={12}
+        sm={6}
+        justifyContent={matchDownSm ? "flex-start" : "flex-end"}
+      >
+        <StyledFilterButton onClick={switchPagination}>
+          {showPagination
+            ? "Switch to infinity scroll"
+            : "Switch to pagination"}
+        </StyledFilterButton>
       </Grid>
     </Grid>
   );

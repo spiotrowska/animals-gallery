@@ -1,7 +1,10 @@
-import Backdrop from "@mui/material/Backdrop";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import { Tooltip, Button } from "@mui/material";
 import { useState } from "react";
-import { IconButton } from "@mui/material";
+import StyledBackdrop from "../UI/StyledBackdrop/StyledBackdrop";
+import StyledImageBoxButton from "../UI/StyledImageBoxButton/StyledImageBoxButton";
+import StyledImageFullScreen from "../UI/StyledImageFullScreen/StyledImageFullScreen";
+import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {
   imageUrl: string;
@@ -20,37 +23,27 @@ function ImageFullScreen(props: Props) {
 
   return (
     <>
-      <IconButton
-        aria-label="full screen"
-        onClick={handleOpen}
-        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-      >
-        <FullscreenIcon />
-      </IconButton>
-      <Backdrop
-        sx={{
-          backgroundColor: "rgb(0 0 0 / 80%)",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-        open={open}
-        onClick={handleClose}
-      >
-        <div></div>
-        <img
+      <StyledImageBoxButton aria-label="full screen" onClick={handleOpen}>
+        <Tooltip title="Full screen">
+          <FullscreenIcon />
+        </Tooltip>
+      </StyledImageBoxButton>
+      <StyledBackdrop open={open} onClick={handleClose}>
+        <Button
+          variant="contained"
+          color="primary"
+          aria-label="close"
+          sx={{ position: "absolute", right: 0, top: 0 }}
+        >
+          <CloseIcon />
+        </Button>
+        <StyledImageFullScreen
           src={props.imageUrl}
           srcSet={props.imageUrl}
           alt="full screen"
           loading="lazy"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            margin: "auto",
-            verticalAlign: "middle",
-            width: "auto",
-            height: "auto",
-          }}
         />
-      </Backdrop>
+      </StyledBackdrop>
     </>
   );
 }

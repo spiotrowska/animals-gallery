@@ -1,12 +1,10 @@
-import { IconButton, Tooltip } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useTheme } from "@mui/material/styles";
+import { Tooltip } from "@mui/material";
+import { useEffect, useState } from "react";
+import StyledScrollToTopButton from "../UI/StyledScrollToTopButton/StyledScrollToTopButton";
 
 function ScrollToTopButton() {
   const [showButton, setShowButton] = useState(false);
-  const theme = useTheme();
 
   const handleScrollToTop = () => {
     window.scroll({ top: 0, behavior: "smooth" });
@@ -22,20 +20,11 @@ function ScrollToTopButton() {
   }, []);
 
   return showButton ? (
-    <Tooltip title="Scroll to top" enterTouchDelay={0}>
-      <IconButton
-        onClick={handleScrollToTop}
-        style={{
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          backgroundColor: theme.palette.primary.contrastText,
-          color: theme.palette.primary.main,
-        }}
-      >
+    <StyledScrollToTopButton variant="contained" onClick={handleScrollToTop}>
+      <Tooltip title="Scroll to top" enterTouchDelay={0}>
         <ExpandLessIcon />
-      </IconButton>
-    </Tooltip>
+      </Tooltip>
+    </StyledScrollToTopButton>
   ) : (
     <></>
   );

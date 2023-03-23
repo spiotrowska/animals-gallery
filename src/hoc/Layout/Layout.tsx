@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import ErrorNotification from "../../components/ErrorNotification/ErrorNotification";
 import Navbar from "../../components/Navbar/Navbar";
+import StyledLayoutBody from "../../components/UI/StyledLayoutBody/StyledLayoutBody";
 import Footer from "./../../components/Footer/Footer";
 import ScrollToTopButton from "./../../components/ScrollToTopButton/ScrollToTopButton";
 
@@ -13,16 +14,7 @@ function Layout(props: LayoutProps) {
     <>
       <ErrorNotification />
       <Navbar />
-      <div
-        style={{
-          marginLeft: 10,
-          marginRight: 10,
-          marginTop: 74,
-          minHeight: "calc(100vh - 128px)",
-        }}
-      >
-        {props.children}
-      </div>
+      <StyledLayoutBody>{props.children}</StyledLayoutBody>
       <Footer />
       <ScrollToTopButton />
     </>

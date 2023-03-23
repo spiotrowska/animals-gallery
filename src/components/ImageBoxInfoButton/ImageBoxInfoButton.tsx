@@ -1,5 +1,8 @@
 import InfoIcon from "@mui/icons-material/Info";
-import { IconButton, Tooltip, Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
+import StyledImageBoxButton from "../UI/StyledImageBoxButton/StyledImageBoxButton";
+import StyledImageBoxInfoTitleText from "../UI/StyledImageBoxInfoText/StyledImageBoxInfoTitleText";
+import StyledImageBoxInfoTitle from "../UI/StyledImageBoxInfoTitle/StyledImageBoxInfoTitle";
 
 interface Props {
   name: string;
@@ -10,33 +13,32 @@ interface Props {
 
 export default function ImageBoxInfoButton(props: Props) {
   return (
-    <IconButton
-      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-      aria-label={`info about ${props.name}`}
-    >
+    <StyledImageBoxButton aria-label={`info about ${props.name}`}>
       <Tooltip
         enterTouchDelay={0}
         title={
           <Typography component={"span"}>
-            <h4 style={{ marginBottom: 0, marginTop: 0 }}>{props.name}</h4>
+            <StyledImageBoxInfoTitle>{props.name}</StyledImageBoxInfoTitle>
             {props.description && (
-              <small>
+              <StyledImageBoxInfoTitleText>
                 {props.description}
-                <br />
-              </small>
+              </StyledImageBoxInfoTitleText>
             )}
             {props.temperament && (
-              <small>
-                Temperament: {props.temperament}
-                <br />
-              </small>
+              <StyledImageBoxInfoTitleText>
+                {`Temperament: ${props.temperament}`}
+              </StyledImageBoxInfoTitleText>
             )}
-            {props.origin && <small>From: {props.origin}</small>}
+            {props.origin && (
+              <StyledImageBoxInfoTitleText>
+                {`From: ${props.origin}`}
+              </StyledImageBoxInfoTitleText>
+            )}
           </Typography>
         }
       >
         <InfoIcon />
       </Tooltip>
-    </IconButton>
+    </StyledImageBoxButton>
   );
 }

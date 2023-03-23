@@ -1,13 +1,14 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { ImageListItem, ImageListItemBar } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
+import { ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { DeleteFavouritesPayload } from "../../store/features/favourites/types";
 import { Image } from "../../store/features/images/types";
 import { useAppSelector } from "../../store/hooks";
 import ImageBoxInfoButton from "../ImageBoxInfoButton/ImageBoxInfoButton";
 import ImageFullScreenButton from "../ImageFullScreenButton/ImageFullScreenButton";
+import StyledFavouriteIconButton from "../UI/StyledFavouriteIconButton/StyledFavouriteIconButton";
+import StyledImageListItemBar from "../UI/StyledImageListItemBar/StyledImageListItemBar";
 import { addFavourite } from "./../../store/features/favourites/addFavourite";
 import { deleteFavourite } from "./../../store/features/favourites/deleteFavourite";
 import {
@@ -64,26 +65,21 @@ export default function ImageBox(props: Props) {
 
   return (
     <>
-      <ImageListItem key={props.image.id} style={{ color: "red" }}>
-        <IconButton
-          color="primary"
+      <ImageListItem key={props.image.id}>
+        <StyledFavouriteIconButton
           aria-label="add to favourites"
-          style={{ position: "absolute" }}
           onClick={handleSetFavourite}
         >
           {isFavourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        </IconButton>
+        </StyledFavouriteIconButton>
         <img
           src={props.image.url}
           srcSet={props.image.url}
           alt={props.image.id}
           loading="lazy"
         />
-        <ImageListItemBar
+        <StyledImageListItemBar
           title={props.image.breeds && props.image.breeds[0]?.name}
-          style={{
-            background: "linear-gradient(0deg,rgba(0,0,0,0.9) 0,rgba(0,0,0,0))",
-          }}
           actionIcon={
             <>
               {props.image.breeds && (

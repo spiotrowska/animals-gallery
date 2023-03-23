@@ -1,9 +1,9 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import Slide, { SlideProps } from "@mui/material/Slide";
-import Snackbar from "@mui/material/Snackbar";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../store/hooks";
+import StyledSnackbar from "../UI/StyledSnackbar/StyledSnackbar";
 import {
   selectAddNewFavouriteStatus,
   selectDeleteFavouriteStatus,
@@ -37,6 +37,10 @@ function ErrorNotification() {
       setMessage(errorMessage);
       setOpen(true);
     }
+  }, [imagesStatus, imagesError]);
+
+  useEffect(() => {
+    const errorMessage = "Ups! Something went wrong.";
     if (
       favouritesStatus === "rejected" ||
       addNewFavouritesStatus === "rejected" ||
@@ -47,8 +51,6 @@ function ErrorNotification() {
       setOpen(true);
     }
   }, [
-    imagesStatus,
-    imagesError,
     favouritesStatus,
     favouritesError,
     addNewFavouritesStatus,
@@ -60,14 +62,13 @@ function ErrorNotification() {
   };
 
   return (
-    <Snackbar
+    <StyledSnackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       open={open}
       onClose={handleClose}
       message={message}
       autoHideDuration={3000}
       TransitionComponent={slideTransition}
-      style={{ marginTop: 60 }}
       action={
         <IconButton
           size="small"

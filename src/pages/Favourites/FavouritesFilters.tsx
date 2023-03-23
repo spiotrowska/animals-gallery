@@ -1,4 +1,5 @@
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
+import StyledFilterButton from "../../components/UI/StyledFilterButton/StyledFilterButton";
 import {
   selectFavouritesSpieces,
   setFavouritesSpieces,
@@ -14,31 +15,26 @@ function FavouritesFilters() {
   }
 
   return (
-    <Grid container spacing={2} alignItems="center">
+    <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Button
-          variant="outlined"
+        <StyledFilterButton
           onClick={() => dispatch(setFavouritesSpieces("cat"))}
           disabled={isSelectedSpieces("cat")}
-          style={{ marginRight: 10 }}
         >
           Cats
-        </Button>
-        <Button
-          variant="outlined"
+        </StyledFilterButton>
+        <StyledFilterButton
           onClick={() => dispatch(setFavouritesSpieces("dog"))}
           disabled={isSelectedSpieces("dog")}
-          style={{ marginRight: 10 }}
         >
           Dogs
-        </Button>
-        <Button
-          variant="outlined"
+        </StyledFilterButton>
+        <StyledFilterButton
           onClick={() => dispatch(setFavouritesSpieces("all"))}
           disabled={isSelectedSpieces("all")}
         >
           All
-        </Button>
+        </StyledFilterButton>
       </Grid>
     </Grid>
   );

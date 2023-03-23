@@ -1,6 +1,8 @@
-import { ImageList, CircularProgress } from "@mui/material";
+import { ImageList, CircularProgress, Grid } from "@mui/material";
 import { useEffect } from "react";
 import ImageBox from "../../components/ImageBox/ImageBox";
+import GalleryPagination from "../../components/Pagination/GalleryPagination";
+import StyledInfoBox from "../../components/UI/StyledInfoBox/StyledInfoBox";
 import { fetchImages } from "../../store/features/images/fetchImages";
 import {
   selectImages,
@@ -10,12 +12,11 @@ import {
   selectImagesStatus,
 } from "../../store/features/images/imagesSlice";
 import { FetchImagesPayload } from "../../store/features/images/types";
+import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
 import { selectShowPagination } from "./../../store/features/images/imagesSlice";
 import { useAppDispatch, useAppSelector } from "./../../store/hooks";
 import GalleryFilters from "./GalleryFilters";
 import GalleryInfinityScrollImages from "./GalleryInfinityScrollImages";
-import useResponsiveImageCols from "./../../hooks/useResponsiveImageCols";
-import NoDataBox from "./../../components/NoDataBox/NoDataBox";
 
 function Gallery() {
   const dispatch = useAppDispatch();
@@ -38,20 +39,29 @@ function Gallery() {
 
   return (
     <div>
-      <GalleryFilters />
-      {imagesStatus === "rejected" && <NoDataBox />}
-      {imagesStatus === "loading" && showPagination && (
-        <div style={{ textAlign: "center" }}>
-          <CircularProgress />
-        </div>
+      {imagesStatus === "rejected" && (
+        <StyledInfoBox>
+          Something went wrong :( You need to refresh the page.
+        </StyledInfoBox>
       )}
-      {imagesStatus === "fulfilled" && !images?.length && <NoDataBox />}
+      {imagesStatus === "loading" && (
+        <Grid textAlign="center">
+          <CircularProgress />
+        </Grid>
+      )}
+      {imagesStatus === "fulfilled" && <GalleryFilters />}
+      {imagesStatus === "fulfilled" && !images?.length && (
+        <StyledInfoBox>No data :(</StyledInfoBox>
+      )}
       {imagesStatus === "fulfilled" && showPagination && (
-        <ImageList cols={imageCols}>
-          {images.map((image) => (
-            <ImageBox key={image.id} image={image} />
-          ))}
-        </ImageList>
+        <>
+          <ImageList cols={imageCols}>
+            {images.map((image) => (
+              <ImageBox key={image.id} image={image} />
+            ))}
+          </ImageList>
+          <GalleryPagination />
+        </>
       )}
       {!showPagination && <GalleryInfinityScrollImages />}
     </div>
