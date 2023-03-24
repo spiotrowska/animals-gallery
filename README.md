@@ -1,1 +1,1 @@
-https://github.com/spiotrowska/animals-gallery
+https://spiotrowska.github.io/animals-gallery/
