@@ -19,6 +19,7 @@ export default function GalleryPagination() {
     newPage: number
   ) => {
     dispatch(setPage(newPage));
+    window.scrollTo(0, 0);
   };
 
   const handleChangeRowsPerPage = (
@@ -26,6 +27,7 @@ export default function GalleryPagination() {
   ) => {
     dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
     dispatch(setPage(0));
+    window.scrollTo(0, 0);
   };
 
   return (

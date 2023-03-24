@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import ErrorNotification from "../../components/ErrorNotification/ErrorNotification";
 import Navbar from "../../components/Navbar/Navbar";
 import StyledLayoutBody from "../../components/UI/StyledLayoutBody/StyledLayoutBody";
@@ -14,7 +15,9 @@ function Layout(props: LayoutProps) {
     <>
       <ErrorNotification />
       <Navbar />
-      <StyledLayoutBody>{props.children}</StyledLayoutBody>
+      <ErrorBoundary>
+        <StyledLayoutBody>{props.children}</StyledLayoutBody>
+      </ErrorBoundary>
       <Footer />
       <ScrollToTopButton />
     </>

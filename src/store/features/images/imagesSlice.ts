@@ -4,7 +4,7 @@ import { ImagesState } from "./types";
 import { fetchImages } from "./fetchImages";
 import { SpiecesAll } from "../../../types/types";
 
-const initialState: ImagesState = {
+export const initialState: ImagesState = {
   status: "idle",
   error: null,
   data: [],

@@ -1,11 +1,12 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import configureStore from "redux-mock-store";
+import { initialState as favouritesInitialState } from "../../store/features/favourites/favouritesSlice";
+import { initialState as imagesInitialState } from "../../store/features/images/imagesSlice";
+import { BrowserRouter } from "react-router-dom";
 import thunk from "redux-thunk";
-import App from "./App";
-import { initialState as favouritesInitialState } from "./store/features/favourites/favouritesSlice";
-import { initialState as imagesInitialState } from "./store/features/images/imagesSlice";
+import Footer from "./Footer";
 
 describe("With React Testing Library", () => {
   const initialState = {
@@ -16,16 +17,16 @@ describe("With React Testing Library", () => {
   const mockStore = configureStore(middlewares);
   let store;
 
-  it('Shows "See and love them!"', () => {
+  it('Shows "Created by Sylwia Wochniak"', () => {
     store = mockStore(initialState);
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <Footer />
         </BrowserRouter>
       </Provider>
     );
-    const linkElement = screen.getByText(/See and love them!/i);
+    const linkElement = screen.getByText(/Created by Sylwia Wochniak/i);
     expect(linkElement).toBeInTheDocument();
   });
 });

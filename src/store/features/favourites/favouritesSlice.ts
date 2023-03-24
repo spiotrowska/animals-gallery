@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { SpiecesAll } from "../../../types/types";
 import { RootState } from "../../store";
-import { fetchFavourites } from "./fetchFavourites";
-import { FavouritesState } from "./types";
 import { addFavourite } from "./addFavourite";
 import { deleteFavourite } from "./deleteFavourite";
-import { SpiecesAll } from "../../../types/types";
+import { fetchFavourites } from "./fetchFavourites";
+import { FavouritesState } from "./types";
 
-const initialState: FavouritesState = {
+export const initialState: FavouritesState = {
   status: "idle",
   addNewStatus: "idle",
   deleteStatus: "idle",

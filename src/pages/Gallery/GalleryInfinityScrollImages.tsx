@@ -1,4 +1,4 @@
-import { ImageList } from "@mui/material";
+import { Box, ImageList, LinearProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
@@ -62,7 +62,15 @@ function GalleryInfinityScrollImages() {
       dataLength={imagesArrayMerged.length * rowsPerPage}
       next={fetchMoreImages}
       hasMore={loadMoreData}
-      loader={<></>}
+      loader={
+        <Box sx={{ textAlign: "center" }}>
+          Loading...{" "}
+          <LinearProgress
+            color="primary"
+            sx={{ width: "70%", mb: 3, mx: "auto" }}
+          />
+        </Box>
+      }
     >
       <ImageList cols={imageCols}>
         {imagesArrayMerged.map((image, index) => (
