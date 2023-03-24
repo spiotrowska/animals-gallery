@@ -2,6 +2,7 @@
   "name": "animals-gallery",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://spiotrowska.github.io/animals-gallery/",
   "dependencies": {
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.13",
