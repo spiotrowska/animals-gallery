@@ -67,7 +67,7 @@ function GalleryInfinityScrollImages() {
           Loading...{" "}
           <LinearProgress
             color="primary"
-            sx={{ width: "70%", mb: 3, mx: "auto" }}
+            sx={{ width: "300px", mb: 3, mx: "auto" }}
           />
         </Box>
       }

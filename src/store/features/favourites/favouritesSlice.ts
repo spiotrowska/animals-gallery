@@ -42,7 +42,9 @@ export const favouritesSlice = createSlice({
       state.error = null;
     });
     builder.addCase(addFavourite.fulfilled, (state, { payload }) => {
-      state.data = [...state.data, payload];
+      if (payload.spieces === state.spieces || state.spieces === "all") {
+        state.data = [...state.data, payload];
+      }
     });
     builder.addCase(addFavourite.rejected, (state, { payload }) => {
       if (payload && typeof payload === "string") state.error = payload;

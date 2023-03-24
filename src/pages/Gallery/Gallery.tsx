@@ -44,7 +44,7 @@ function Gallery() {
           Something went wrong :( You need to refresh the page.
         </StyledInfoBox>
       )}
-      {imagesStatus === "loading" && (
+      {imagesStatus === "loading" && showPagination && (
         <Grid textAlign="center">
           <CircularProgress />
         </Grid>
